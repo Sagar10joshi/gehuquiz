@@ -22,7 +22,7 @@ const LoginPage = () => {
         }
 
         try {
-            const response = await fetch('https://gehuquiz-aogfj8v7s-sagars-projects-0f20619e.vercel.app//login', {
+            const response = await fetch('https://gehuquiz-aogfj8v7s-sagars-projects-0f20619e.vercel.app/login', {
                 method: 'POST',
                 credentials: "include", // Include cookies
                 headers: {
