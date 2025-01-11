@@ -22,7 +22,7 @@ const LoginPage = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/login', {
+            const response = await fetch('https://gehuquiz-bfcs1rtul-sagars-projects-0f20619e.vercel.app/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
