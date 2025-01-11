@@ -20,7 +20,7 @@ const OTPVerification = () => {
         const token = sessionStorage.getItem('token');
     
         try {
-            const response = await fetch('https://gehuquiz-aogfj8v7s-sagars-projects-0f20619e.vercel.app/otp', {
+            const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/otp', {
                 method: 'POST',
                 credentials: "include", // Include cookies
                 headers: {
