@@ -16,7 +16,7 @@ app.options('*', cors()); // Handle preflight requests
 
 // Enable CORS
 app.use(cors({
-    origin: ["https://gehuquiz-yj7h.vercel.app","*"], // Allow your frontend's domain
+    origin: ["https://gehuquiz-yj7h.vercel.app"], // Allow your frontend's domain
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow specific HTTP methods
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true // If you need to include cookies
@@ -31,6 +31,10 @@ app.use(express.urlencoded({extended:false}))
 
 app.get('/',(req,res)=>{
     res.json("Welcome to Server")
+})
+
+app.get('/register',(req,res)=>{
+    res.json("Welcome to Registration page")
 })
 
 //Route for Registration and to send otp       
