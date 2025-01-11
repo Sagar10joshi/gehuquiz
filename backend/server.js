@@ -11,13 +11,12 @@ dotenv.config({
 })
 
 const app = express();
-const corsOptions = {
-    origin: '*', // Allow all origins
-    methods: 'GET,POST,PUT,DELETE', // Specify allowed HTTP methods
-    allowedHeaders: 'Content-Type,Authorization', // Specify allowed headers
-  };
-  
-  app.use(cors(corsOptions));
+// Enable CORS
+app.use(cors({
+    origin: ["https://gehuquiz-yj7h.vercel.app"], // Allow your frontend's domain
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow specific HTTP methods
+    credentials: true // If you need to include cookies
+  }));  
   
 // app.use(cors({}));
 app.use(express.json());
