@@ -16,7 +16,7 @@ const app = express();
 
 // CORS middleware configuration
 const corsOptions = {
-    origin: 'https://gehuquiz-2oyc-5hnl2rm9x-sagars-projects-0f20619e.vercel.app',  // Allow only your frontend domain
+    origin: 'https://gehuquiz-2oyc.vercel.app/',  // Allow only your frontend domain
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true  // Allow cookies or credentials if needed
