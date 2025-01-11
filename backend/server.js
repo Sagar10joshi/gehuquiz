@@ -2,10 +2,10 @@ import express from "express";
 import dotenv from "dotenv"
 import cors from "cors"
 import jwt from "jsonwebtoken"
-import { sendOtp } from "./mail.js";
-import {sendresult} from "./resultmail.js"
-import dbConnect from "./dbConnect.js";
-import {Register} from "./register_model.js"
+import { sendOtp } from "./api/mail.js";
+import {sendresult} from "./api/resultmail.js"
+import dbConnect from "./api/dbConnect.js";
+import {Register} from "./api/register_model.js"
 dotenv.config({
     path: "./.env"
 })

@@ -1,11 +1,11 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "api/server.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon -r dotenv/config --experimental-json-modules api/server.js",
-     "start": "node api/server.js"
+    "dev": "nodemon -r dotenv/config --experimental-json-modules server.js",
+     "start": "node server.js"
   },
   "keywords": [],
   "author": "",
