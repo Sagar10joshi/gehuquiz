@@ -6,6 +6,7 @@
   "headers": [
     {
       "source": "/(.*)",  
+      "dest": "server.js",
       "headers": [
         { "key": "Access-Control-Allow-Origin", "value": "https://gehuquiz-yj7h.vercel.app" },  
         { "key": "Access-Control-Allow-Methods", "value": "GET, POST, PUT, DELETE, PATCH, OPTIONS" },
