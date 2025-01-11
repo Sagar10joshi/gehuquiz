@@ -114,7 +114,7 @@ function Quiz({ questions }) {
 
       const token = sessionStorage.getItem('token'); // Fetch the token
       // POST the score to your backend
-      const response = await fetch('https://gehuquiz-bfcs1rtul-sagars-projects-0f20619e.vercel.app/score', {
+      const response = await fetch('https://gehuquiz-aogfj8v7s-sagars-projects-0f20619e.vercel.app//score', {
         method: 'POST',
         credentials: "include", // Include cookies
         headers: {
