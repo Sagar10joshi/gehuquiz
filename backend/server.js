@@ -15,6 +15,7 @@ const app = express();
 app.use(cors({
     origin: ["https://gehuquiz-yj7h.vercel.app"], // Allow your frontend's domain
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow specific HTTP methods
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true // If you need to include cookies
   }));  
   

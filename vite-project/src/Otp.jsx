@@ -22,6 +22,7 @@ const OTPVerification = () => {
         try {
             const response = await fetch('https://gehuquiz-bfcs1rtul-sagars-projects-0f20619e.vercel.app/otp', {
                 method: 'POST',
+                credentials: "include", // Include cookies
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`, // Include the token

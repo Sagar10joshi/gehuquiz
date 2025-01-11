@@ -116,6 +116,7 @@ function Quiz({ questions }) {
       // POST the score to your backend
       const response = await fetch('https://gehuquiz-bfcs1rtul-sagars-projects-0f20619e.vercel.app/score', {
         method: 'POST',
+        credentials: "include", // Include cookies
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`, // Include the token
