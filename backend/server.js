@@ -12,15 +12,18 @@ dotenv.config({
 
 const app = express();
 
-app.options('*', cors()); // Handle preflight requests
+// app.options('*', cors()); // Handle preflight requests
 
-// Enable CORS
-app.use(cors({
-    origin: ["https://gehuquiz-yj7h.vercel.app"], // Allow your frontend's domain
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow specific HTTP methods
+// CORS middleware configuration
+const corsOptions = {
+    origin: 'https://gehuquiz-2oyc-5hnl2rm9x-sagars-projects-0f20619e.vercel.app',  // Allow only your frontend domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true // If you need to include cookies
-  }));  
+    credentials: true  // Allow cookies or credentials if needed
+  };
+  
+  // Apply CORS middleware to all routes
+  app.use(cors(corsOptions)); 
   
 // app.use(cors({}));
 app.use(express.json());
