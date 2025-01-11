@@ -14,7 +14,7 @@ async function sendOtp(email, otp) {
     });
 
     let mailOptions = {
-        from: 'OTP Service : GEHU Bhimtal Quiz Portal',
+        from: 'OTP Service : GEHU Bhimtal Quiz Portal <coderjoshi15@gmail.com>',
         to: `${email}`,
         // to: 'joshisagar0596@gmail.com',
         subject: 'Your OTP for Quiz Portal Registration',
