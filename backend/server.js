@@ -11,9 +11,12 @@ dotenv.config({
 })
 
 const app = express();
+
+app.options('*', cors()); // Handle preflight requests
+
 // Enable CORS
 app.use(cors({
-    origin: ["https://gehuquiz-yj7h.vercel.app"], // Allow your frontend's domain
+    origin: ["https://gehuquiz-yj7h.vercel.app","*"], // Allow your frontend's domain
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow specific HTTP methods
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true // If you need to include cookies
@@ -167,8 +170,8 @@ app.post('/score', async(req, res) => {
 dbConnect()//Function for the connection of database
 
 
-// module.exports = app; // Export the app instance
+module.exports = app; // Export the app instance
 
-app.listen(process.env.PORT,()=>{
-    console.log(`App is listning on PORT : ${process.env.PORT}`)
-})
+// app.listen(process.env.PORT,()=>{
+//     console.log(`App is listning on PORT : ${process.env.PORT}`)
+// })
