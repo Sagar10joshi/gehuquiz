@@ -181,6 +181,10 @@ app.post('/score', async(req, res) => {
     }
 });
 
+app.get('/reset-password',async (req,res)=>{
+  res.json("Welcome to Registration page")
+})
+
 app.post('/reset-password', async (req, res) => {
     const { email } = req.body;
   
@@ -206,7 +210,7 @@ app.post('/reset-password', async (req, res) => {
 
     await resetMail(user,resetUrl);
 
-    res.status(200).json({ message: 'Password reset email sent', redirect: '/reset-password/confirm'});
+    res.status(200).json({ message: 'Password reset email sent'});
     
   } catch (err) {
     console.error(err);
