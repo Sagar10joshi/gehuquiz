@@ -202,7 +202,7 @@ app.post('/reset-password', async (req, res) => {
     await user.save();
 
     // Send the reset email with the reset link
-    const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+    const resetUrl = `https://gehuquiz-2oyc.vercel.app/reset-password/${resetToken}`;
 
     await resetMail(user,resetUrl);
 
