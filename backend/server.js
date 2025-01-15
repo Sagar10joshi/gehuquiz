@@ -6,7 +6,7 @@ import crypto from "crypto"
 import jwt from "jsonwebtoken"
 import { sendOtp } from "./api/mail.js";
 import {sendresult} from "./api/resultmail.js"
-import {resetMail} from "./resetMail.js"
+import {resetMail} from "./api/resetMail.js"
 import dbConnect from "./api/dbConnect.js";
 import {Register} from "./api/register_model.js"
 dotenv.config({
