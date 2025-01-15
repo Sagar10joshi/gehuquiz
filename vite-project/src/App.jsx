@@ -7,10 +7,10 @@ import RegistrationPage from './Register'
 import OTPVerification from './Otp';
 import FeedbackPage from './Feedback'
 import AdminPage from './AdminDash';
-import Admin from './Admin';
+import Admin from './Reset.jsx';
 import questions from './Questions.jsx';
 import Quizstart from './Startquiz'
-import PasswordResetRequest from './Reset'
+// import PasswordResetRequest from './Reset'
 import PasswordResetConfirm from './Resetpass'
 function App() {
     return (
@@ -21,8 +21,8 @@ function App() {
                 <Route path="/otp" element={<OTPVerification />} />
                 <Route path="/results" element={<FeedbackPage />} />
                 <Route path="/admin" element={<AdminPage/>}/>
-                <Route path="/adminlogin" element={<Admin/>} />
-                <Route path="/reset-password" element={<PasswordResetRequest/>} />
+                {/* <Route path="/adminlogin" element={<Admin/>} /> */}
+                <Route path="/reset-password" element={<Admin/>} />
                 <Route path="/reset-password/:token" element={<PasswordResetConfirm/>} />
                 <Route path="/start" element={<Quizstart questions={questions} />} />
             </Routes>
