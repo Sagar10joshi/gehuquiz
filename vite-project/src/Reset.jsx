@@ -20,6 +20,7 @@ function PasswordResetRequest() {
     try {
       const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/reset-password', {
         method: 'POST',
+        credentials: "include", // Include cookies
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
@@ -30,6 +31,7 @@ function PasswordResetRequest() {
         setMessage(data.message);
         setError('');
       } else {
+        console.log("Error in frontend");
         setError(data.message);
         setMessage('');
       }
