@@ -193,6 +193,7 @@ app.post('/reset-password', async (req, res) => {
       const user = await Register.findOne({ email });
   
       if (!user) {
+        console.log("error in server");
         return res.status(404).json({ message: 'User not found' });
       }
 
