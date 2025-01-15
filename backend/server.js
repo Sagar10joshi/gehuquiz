@@ -5,12 +5,12 @@ import bcrypt from "bcryptjs"
 import crypto from "crypto"
 import jwt from "jsonwebtoken"
 import { sendOtp } from "./api/mail.js";
-import {sendresult} from "./api/resultmail.js"
-import {resetMail} from "./api/resetMail.js"
+import { sendresult } from "./api/resultmail.js"
+import { resetMail } from "./api/resetMail.js"
 import dbConnect from "./api/dbConnect.js";
-import {Register} from "./api/register_model.js"
+import { Register } from "./api/register_model.js"
 dotenv.config({
-    path: "./.env"
+  path: "./.env"
 })
 
 const app = express();
@@ -19,138 +19,138 @@ const app = express();
 
 // CORS middleware configuration
 const corsOptions = {
-    origin: 'https://gehuquiz-2oyc.vercel.app',  // Allow only your frontend domain
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true  // Allow cookies or credentials if needed
-  };
-  
-  // Apply CORS middleware to all routes
-  app.use(cors(corsOptions)); 
-  
+  origin: 'https://gehuquiz-2oyc.vercel.app',  // Allow only your frontend domain
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true  // Allow cookies or credentials if needed
+};
+
+// Apply CORS middleware to all routes
+app.use(cors(corsOptions));
+
 // app.use(cors({}));
 app.use(express.json());
-app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({ extended: false }))
 
 
 
 
-app.get('/',(req,res)=>{
-    res.json("Welcome to Server")
+app.get('/', (req, res) => {
+  res.json("Welcome to Server")
 })
 
-app.get('/register',(req,res)=>{
-    res.json("Welcome to Registration page")
+app.get('/register', (req, res) => {
+  res.json("Welcome to Registration page")
 })
 
 //Route for Registration and to send otp       
 
 app.post('/register', async (req, res) => {
-    const { username, email, password } = req.body;
-    const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const otpTimestamp = Date.now();
-    const token = jwt.sign({ username, email, password,otp, otpTimestamp }, '321', { expiresIn: '5m' });
-    
-    if (email) {
-        try {
-            await sendOtp(email,otp)
-            res.status(200).json({
-                message: 'Otp Sent Successfully!!',
-                token, // Send the token to the client
-                redirect: '/otp' // Redirect to OTP page
-            });
-            console.log("Otp Sent Successfully!!");
-            //console.log("Session data after registration:", req.session.userData);
+  const { username, email, password } = req.body;
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  const otpTimestamp = Date.now();
+  const token = jwt.sign({ username, email, password, otp, otpTimestamp }, '321', { expiresIn: '5m' });
 
-        } catch (error) {
-            console.error('Error sending OTP:', error);
-            res.status(500).send('Error sending OTP');
-        }
-    } else {
-        res.status(400).send('Email is required');
+  if (email) {
+    try {
+      await sendOtp(email, otp)
+      res.status(200).json({
+        message: 'Otp Sent Successfully!!',
+        token, // Send the token to the client
+        redirect: '/otp' // Redirect to OTP page
+      });
+      console.log("Otp Sent Successfully!!");
+      //console.log("Session data after registration:", req.session.userData);
+
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      res.status(500).send('Error sending OTP');
     }
+  } else {
+    res.status(400).send('Email is required');
+  }
 });
 
 //Route for verifying otp and saving user in database
 
-app.post('/otp',async(req,res)=>{
+app.post('/otp', async (req, res) => {
 
-    const token = req.headers['authorization']?.split(' ')[1]; // Assuming 'Bearer <token>'
-    if (!token) return res.status(401).send('Access denied. No token provided.');
+  const token = req.headers['authorization']?.split(' ')[1]; // Assuming 'Bearer <token>'
+  if (!token) return res.status(401).send('Access denied. No token provided.');
 
-    try {
-        const code = req.body.otp
-        const currentTime = Date.now()
-        const decoded = jwt.verify(token, '321');
-        const { otp, otpTimestamp } = decoded;
-        // Access the user data from the decoded token
-        const { username, email, password } = decoded;
-        
+  try {
+    const code = req.body.otp
+    const currentTime = Date.now()
+    const decoded = jwt.verify(token, '321');
+    const { otp, otpTimestamp } = decoded;
+    // Access the user data from the decoded token
+    const { username, email, password } = decoded;
 
-        if (code===otp && currentTime-otpTimestamp<120000) {
-            const registerUser = new Register({
-                username, 
-                email, 
-                password
-            })
-            const Registered = await registerUser.save();
-            return res.status(200).json({
-                message: 'Registration successful!',
-                redirect: '/login' // Redirect to quiz page
-            });
-        } else {
-            return res.status(400).json({ message: "Invalid OTP" });
-        }
-    } catch (error) {
-        res.status(400).json({ message: error.message });
+
+    if (code === otp && currentTime - otpTimestamp < 120000) {
+      const registerUser = new Register({
+        username,
+        email,
+        password
+      })
+      const Registered = await registerUser.save();
+      return res.status(200).json({
+        message: 'Registration successful!',
+        redirect: '/login' // Redirect to quiz page
+      });
+    } else {
+      return res.status(400).json({ message: "Invalid OTP" });
     }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
 })
 
 //Route for login
 
-app.post('/login',async(req,res)=>{
-    try {
-        const Username = req.body.username
-        const Password = req.body.password
+app.post('/login', async (req, res) => {
+  try {
+    const Username = req.body.username
+    const Password = req.body.password
 
-        const userlogin = await Register.findOne({username:Username})
+    const userlogin = await Register.findOne({ username: Username })
 
-        if (!userlogin) {
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-
-        if(userlogin.password===Password && userlogin.username===Username){
-            // Generate a JWT token
-            const token = jwt.sign({ username: userlogin.username, password: userlogin.password }, '321', { expiresIn: '1h' });
-            return res.status(200).json({ message: 'Login successful',token, redirect: '/' });
-
-        }
-        else{
-            return res.status(401).json({ message: 'Invalid credentials' });
-        }
-
-    } catch (error) {
-        console.error('Login error:', error);
-        res.status(500).send('User cannot be logged in, invalid credentials');
+    if (!userlogin) {
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
+
+    if (userlogin.password === Password && userlogin.username === Username) {
+      // Generate a JWT token
+      const token = jwt.sign({ username: userlogin.username, password: userlogin.password }, '321', { expiresIn: '1h' });
+      return res.status(200).json({ message: 'Login successful', token, redirect: '/' });
+
+    }
+    else {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).send('User cannot be logged in, invalid credentials');
+  }
 })
 
 
 //Route for sending final score in user mail
 
-app.post('/score', async(req, res) => {
+app.post('/score', async (req, res) => {
 
-    const token = req.headers['authorization']?.split(' ')[1]; // Assuming 'Bearer <token>'
-    if (!token) return res.status(401).send('Access denied. No token provided.');
+  const token = req.headers['authorization']?.split(' ')[1]; // Assuming 'Bearer <token>'
+  if (!token) return res.status(401).send('Access denied. No token provided.');
 
-    console.log('Received score:', req.body.score);  // Log the incoming score
-    const score = req.body.score;
-    try {
-      // Save the score to your database
+  console.log('Received score:', req.body.score);  // Log the incoming score
+  const score = req.body.score;
+  try {
+    // Save the score to your database
 
-      // Decode the JWT token 
+    // Decode the JWT token 
     const decoded = jwt.verify(token, '321');
-    const username = decoded.username; 
+    const username = decoded.username;
 
     if (!username) {
       return res.status(400).send('Invalid token: User ID not found');
@@ -163,44 +163,44 @@ app.post('/score', async(req, res) => {
       return res.status(404).send('User not found');
     }
 
-        const email = user.email;
+    const email = user.email;
 
 
-      await sendresult(email,score);
-  
-      res.status(200).json({ message: 'Score saved successfully' });
-    } catch (error) {
-      console.error('Error saving score:', error);
-      res.status(500).json({ message: 'Failed to save score' });
-    }
-  });
+    await sendresult(email, score);
 
-  app.get('/users', async (req, res) => {
-    try {
-      const users = await Register.find(); // Fetch all users from the database
-      res.json(users); // Respond with the list of users
-    } catch (error) {
-      res.status(500).json({ message: 'Server error' }); // Handle any errors
-    }
+    res.status(200).json({ message: 'Score saved successfully' });
+  } catch (error) {
+    console.error('Error saving score:', error);
+    res.status(500).json({ message: 'Failed to save score' });
+  }
 });
 
-app.get('/reset-password',async (req,res)=>{
+app.get('/users', async (req, res) => {
+  try {
+    const users = await Register.find(); // Fetch all users from the database
+    res.json(users); // Respond with the list of users
+  } catch (error) {
+    res.status(500).json({ message: 'Server error' }); // Handle any errors
+  }
+});
+
+app.get('/reset-password', async (req, res) => {
   res.json("Welcome to Registration page")
 })
 
 app.post('/reset-password', async (req, res) => {
-    const { email } = req.body;
-  
-    try {
-      // Check if user exists in the database
-      const user = await Register.findOne({ email });
-  
-      if (!user) {
-        console.log("error in server");
-        return res.status(404).json({ message: 'User not found' });
-      }
+  const { email } = req.body;
 
-      // Generate a reset token
+  try {
+    // Check if user exists in the database
+    const user = await Register.findOne({ email });
+
+    if (!user) {
+      console.log("error in server");
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Generate a reset token
     const resetToken = crypto.randomBytes(32).toString('hex');
     const resetTokenExpiration = Date.now() + 3600000; // Token is valid for 1 hour
 
@@ -212,10 +212,10 @@ app.post('/reset-password', async (req, res) => {
     // Send the reset email with the reset link
     const resetUrl = `https://gehuquiz-2oyc.vercel.app/reset-password/${resetToken}`;
 
-    await resetMail(user,resetUrl);
+    await resetMail(user, resetUrl);
 
-    res.status(200).json({ message: 'Password reset email sent'});
-    
+    res.status(200).json({ message: 'Password reset email sent' });
+
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server error' });
@@ -225,37 +225,37 @@ app.post('/reset-password', async (req, res) => {
 
 // Password Reset Confirm - Step 2
 app.post('/reset-password/confirm', async (req, res) => {
-    const { token, newPassword } = req.body;
-  
-    try {
-      // Find user by reset token and check if token is still valid
-      const user = await Register.findOne({
-        resetToken: token,
-        resetTokenExpiration: { $gt: Date.now() }, // Check if token is expired
-      });
-  
-      if (!user) {
-        return res.status(400).json({ message: 'Invalid or expired token' });
-      }
-  
-      // Hash the new password before saving
+  const { token, newPassword } = req.body;
+
+  try {
+    // Find user by reset token and check if token is still valid
+    const user = await Register.findOne({
+      resetToken: token,
+      resetTokenExpiration: { $gt: Date.now() }, // Check if token is expired
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired token' });
+    }
+
+    // Hash the new password before saving
     //   const hashedPassword = await bcrypt.hash(newPassword, 12);
     const hashedPassword = newPassword;
-  
-      // Save the new password and clear the reset token fields
-      user.password = hashedPassword;
-      user.resetToken = undefined;
-      user.resetTokenExpiration = undefined;
-      await user.save();
-  
-      res.status(200).json({ message: 'Password reset successful' });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Server error' });
-    }
-  });
 
-  
+    // Save the new password and clear the reset token fields
+    user.password = hashedPassword;
+    user.resetToken = undefined;
+    user.resetTokenExpiration = undefined;
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successful' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 
 
 dbConnect()//Function for the connection of database

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-function PassReset() {
+function PassConfirm() {
   const { token } = useParams();
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -52,4 +52,4 @@ function PassReset() {
   );
 }
 
-export default PassReset;
+export default PassConfirm;
