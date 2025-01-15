@@ -1,0 +1,109 @@
+#Admin_body{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow-x: hidden;
+    width: 100vw;
+    background-color: black;
+}
+
+header1{
+    display: flex;
+    color: #a547ed;
+    padding: 0 2rem;
+}
+
+#ul{
+    display: flex;
+    width: 35rem;
+    margin-left: 42rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li1{
+    list-style-type: none;
+    color: #a547ed;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+.Section #adminbtn{
+    color: #a547ed;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    background-color: black;
+    max-width: fit-content;
+    margin-top: 2.5rem;
+}
+.Section{
+    display: flex;
+    flex-direction: column;
+    padding: 0 2rem;
+    margin-top: 1rem;
+}
+
+.Section li1{
+    margin-top: 3.2rem;
+    align-items: stretch; 
+}
+
+.Section2{
+    background-color: aquamarine;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* Media Queries for Responsiveness */
+
+/* Tablet view: Adjust header layout */
+@media (max-width: 768px) {
+    header {
+        display: flex;
+        /* flex-direction: column; Stack header content vertically */
+        /* align-items: flex-start; */
+        padding: 1rem; /* Add padding for better spacing */
+    }
+
+    #ul {
+        width: 100%; /* Allow the list to take full width */
+        /* flex-direction: column; Stack menu items vertically */
+        margin-left: 0; /* Remove margin to prevent overflow */
+        padding-left: 0; /* Remove any extra padding */
+        margin-top: 1rem; /* Space between header and navigation */
+    }
+
+    li1 {
+        font-size: 0.7rem; /* Smaller font size for smaller screens */
+        margin: 0.5rem 0; /* Vertical margin for spacing between items */
+    }
+}
+
+/* Mobile view: Adjust font size and layout further */
+@media (max-width: 480px) {
+    header {
+        padding: 0.5rem; /* Smaller padding for tight screens */
+    }
+
+    li1 {
+        font-size: 0.8rem; /* Even smaller font size */
+        margin: 0.5rem 0; /* Adequate spacing between items */
+        display: flex;
+    }
+
+    #ul {
+        width: 100%; /* Full width for mobile navigation */
+        padding: 0; /* No extra padding */
+        display: flex;
+    }
+}

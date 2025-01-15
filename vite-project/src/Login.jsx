@@ -1,4 +1,4 @@
-// src/Login.js
+//  src/Login.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './Login.css';
@@ -9,6 +9,10 @@ const LoginPage = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const navigate = useNavigate(); // Correctly defined here
+
+    const handleReset = ()=>{
+      navigate('/reset-password');
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -26,7 +30,7 @@ const LoginPage = () => {
                 method: 'POST',
                 credentials: "include", // Include cookies
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json', 
                 },
                 body: JSON.stringify({ username, password }),
             });
@@ -56,28 +60,31 @@ const LoginPage = () => {
                 <h1>Log In</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label htmlFor="username">Username</label>
+                        <p>Username</p>
                         <input
                             type="text"
                             id="username"
                             name="username"
+                            placeholder='Enter Username'
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             required
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="password">Password</label>
+                        <p>Passward</p>
                         <input
                             type="password"
                             id="password"
                             name="password"
+                            placeholder='Enter password'
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
                     </div>
-                    <button type="submit">Login</button>
+                    <button type="submit">Login</button> <br /> <br />
+                    <a href="" onClick={handleReset} style={{ color: 'white' }}>Reset Password</a>
                 </form>
                 {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
                 {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}

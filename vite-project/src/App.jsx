@@ -6,6 +6,12 @@ import LoginPage from './Login'; // Your login component
 import RegistrationPage from './Register'
 import OTPVerification from './Otp';
 import FeedbackPage from './Feedback'
+import AdminPage from './AdminDash';
+import Admin from './Admin';
+import questions from './Questions.jsx';
+import Quizstart from './Startquiz'
+import PasswordResetRequest from './Reset.jsx'
+import PasswordResetConfirm from './Resetpass.jsx'
 function App() {
     return (
             <Routes>
@@ -14,63 +20,11 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/otp" element={<OTPVerification />} />
                 <Route path="/results" element={<FeedbackPage />} />
+                <Route path="/admin" element={<AdminPage/>}/>
+                <Route path="/adminlogin" element={<Admin/>} />
+                <Route path="/reset-password" element={<PasswordResetRequest/>} />
+                <Route path="/reset-password/:token" element={<PasswordResetConfirm/>} />
+                <Route path="/start" element={<Quizstart questions={questions} />} />
             </Routes>
     );
-}
-
-
-
-
-export default App;
-
-
-// return (
-//     <Router>
-//         <Routes>
-//             <Route path="/" element={<QuizHomePage />} />
-//             <Route path="/register" element={<RegistrationPage />} />
-//             <Route path="/login" element={<LoginPage />} />
-//             <Route path="/otp" element={<OTPVerification />} />
-//         </Routes>
-//     </Router>
-// );
-
-
-
-
-
-
-
-
-
-//   //let value = 0
-
-//   let [value , setvalue] = useState(0)
-
-//   const addLike = ()=>{
-//     value = value+1
-//     setvalue(value)
-//   }
-
-//   const decLike = ()=>{
-//     value = value-1
-//     setvalue(value)
-//   }
-
-//   return (
-//     <>
-//     <h2>Likes : {value}</h2>
-//     <button onClick={addLike}>
-//       Like 
-//     </button>
-//     <br />
-//     <br />
-//     <button onClick={decLike}>
-//       Dislike
-//     </button>
-//     </>
-  
-//   )
-// }
-
-
+}export default App;

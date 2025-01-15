@@ -39,7 +39,7 @@ h1 {
     text-align: left;
 }
 
-label {
+p {
     display: block;
     margin-bottom: 5px;
     color: #666;
@@ -53,10 +53,10 @@ input {
     transition: border-color 0.3s;
 }
 
-input:focus {
+ input:focus {
     border-color: #ff7e5f;
     outline: none;
-}
+} 
 
 button {
     background: #ff7e5f;

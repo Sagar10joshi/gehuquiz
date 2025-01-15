@@ -171,6 +171,82 @@ app.post('/score', async(req, res) => {
       res.status(500).json({ message: 'Failed to save score' });
     }
   });
+
+  app.get('/users', async (req, res) => {
+    try {
+      const users = await Register.find(); // Fetch all users from the database
+      res.json(users); // Respond with the list of users
+    } catch (error) {
+      res.status(500).json({ message: 'Server error' }); // Handle any errors
+    }
+});
+
+app.post('/reset-password', async (req, res) => {
+    const { email } = req.body;
+  
+    try {
+      // Check if user exists in the database
+      const user = await Register.findOne({ email });
+  
+      if (!user) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      // Generate a reset token
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const resetTokenExpiration = Date.now() + 3600000; // Token is valid for 1 hour
+
+    // Store the reset token and its expiration time in the user document
+    user.resetToken = resetToken;
+    user.resetTokenExpiration = resetTokenExpiration;
+    await user.save();
+
+    // Send the reset email with the reset link
+    const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+
+    await resetMail(user,resetUrl);
+
+    res.status(200).json({ message: 'Password reset email sent', redirect: '/reset-password/confirm'});
+    
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+// Password Reset Confirm - Step 2
+app.post('/reset-password/confirm', async (req, res) => {
+    const { token, newPassword } = req.body;
+  
+    try {
+      // Find user by reset token and check if token is still valid
+      const user = await Register.findOne({
+        resetToken: token,
+        resetTokenExpiration: { $gt: Date.now() }, // Check if token is expired
+      });
+  
+      if (!user) {
+        return res.status(400).json({ message: 'Invalid or expired token' });
+      }
+  
+      // Hash the new password before saving
+    //   const hashedPassword = await bcrypt.hash(newPassword, 12);
+    const hashedPassword = newPassword;
+  
+      // Save the new password and clear the reset token fields
+      user.password = hashedPassword;
+      user.resetToken = undefined;
+      user.resetTokenExpiration = undefined;
+      await user.save();
+  
+      res.status(200).json({ message: 'Password reset successful' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Server error' });
+    }
+  });
+
   
 
 

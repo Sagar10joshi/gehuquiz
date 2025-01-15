@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 6
+    },
+    resetToken :{
+        type :String
+    },
+    resetTokenExpiration :{
+        type: Date
     }
 },{timestamps:true});
 

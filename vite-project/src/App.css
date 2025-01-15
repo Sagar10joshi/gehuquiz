@@ -1,11 +1,15 @@
-
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 .quiz-container {
     background-image: url('./images/bgimage.png'); /* Path to your background image */
     text-align: center;
     position: relative;
     overflow: hidden;
     height: 100vh;
-    color: white;
+    /* color: white; */
     background-size: cover; /* Cover the entire container */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent image repetition */
@@ -132,6 +136,12 @@
     border: none;                 /* Remove border */
     border-radius: 5px;          /* Rounded corners */
     cursor: pointer;              /* Pointer cursor on hover */
+}
+
+#btn3{
+    position: absolute; /* Position the button relative to the nearest positioned ancestor */
+  top: 10px; /* Distance from the top of the container or page */
+  left: 10px; /* Distance from the left of the container or page */
 }
 
 #btn:hover, #btn2:hover {
