@@ -10,8 +10,8 @@ import AdminPage from './AdminDash';
 import Admin from './Admin';
 import questions from './Questions.jsx';
 import Quizstart from './Startquiz'
-import PasswordResetRequest from './Reset.jsx'
-import PasswordResetConfirm from './Resetpass.jsx'
+import PasswordResetRequest from './Reset'
+import PasswordResetConfirm from './Resetpass'
 function App() {
     return (
             <Routes>
