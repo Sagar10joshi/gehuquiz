@@ -84,7 +84,8 @@ const LoginPage = () => {
                         />
                     </div>
                     <button type="submit">Login</button> <br /> <br />
-                    <a href="" onClick={handleReset} style={{ color: 'white' }}>Reset Password</a>
+                    {/* <a href="" onClick={handleReset} style={{ color: 'white' }}>Reset Password</a> */}
+                    <p  onClick={handleReset} style={{ color: 'white' }}>Reset Password</p>
                 </form>
                 {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
                 {successMessage && <div style={{ color: 'green' }}>{successMessage}</div>}
