@@ -7,7 +7,7 @@
 //   const [success, setSuccess] = useState(false);
 //   const [message, setMessage] = useState('');
 
-//   const handleSubmit = async(e) => {
+//   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     // Simple email validation
 //     if (!email || !/\S+@\S+\.\S+/.test(email)) {
@@ -31,7 +31,6 @@
 //         setMessage(data.message);
 //         setError('');
 //       } else {
-//         console.log("Error in frontend");
 //         setError(data.message);
 //         setMessage('');
 //       }
@@ -44,38 +43,39 @@
 
 //   return (
 //     <div id="body2">
-//         <div className="password-reset-container">
-//       <div className="form-container">
-//         <h2>Password Reset</h2>
-//         {!success ? (
-          
-//             <form onSubmit={handleSubmit}>
-//             <div className="input-group">
-//               <input
-//                 type="email"
-//                 id="email"
-//                 value={email}
-//                 onChange={(e) => setEmail(e.target.value)}
-//                 required
-//               />
-//               <label htmlFor="email" id='label'>Enter your email address</label>
-//               {/* {error && <p className="error">{error}</p>} */}
+//       <div className="password-reset-container">
+//         <div className="form-container">
+//           <h2>Password Reset</h2>
+//           {!success ? (
+//             <>
+//               <form onSubmit={handleSubmit}>
+//                 <div className="input-group">
+//                   <input
+//                     type="email"
+//                     id="email"
+//                     value={email}
+//                     onChange={(e) => setEmail(e.target.value)}
+//                     required
+//                   />
+//                   <label htmlFor="email" id='label'>Enter your email address</label>
+//                   {/* {error && <p className="error">{error}</p>} */}
+//                 </div>
+//                 <div>
+//                   <button type="submit" className="submit-btn">Reset Password</button>
+//                   {message && <p style={{ color: 'green' }}>{message}</p>}
+//                   {error && <p style={{ color: 'red' }}>{error}</p>}
+//                 </div>
+//               </form>
+//             </>
+//           ) : (
+//             <div className="success-message">
+//               <h3>Check your inbox for the reset link!</h3>
+//               <p>If the email is registered, you will receive an email shortly.</p>
 //             </div>
-//               <div>
-//                 <button type="submit" className="submit-btn">Reset Password</button>
-//                 {message && <p style={{ color: 'green' }}>{message}</p>}
-//                 {error && <p style={{ color: 'red' }}>{error}</p>}
-//               </div>
-//             </form>
-//         ) : (
-//           <div className="success-message">
-//             <h3>Check your inbox for the reset link!</h3>
-//             <p>If the email is registered, you will receive an email shortly.</p>
-//           </div>
-          
-//         )}
+
+//           )}
+//         </div>
 //       </div>
-//     </div>
 //     </div>
 //   );
 // }
@@ -90,21 +90,28 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-function PasswordResetConfirm() {
+function PasswordReset() {
   const { token } = useParams();
-  const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [email, setEmail] = useState('');
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email || !/\S+@\S+\.\S+/.test(email)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+    setError('');
+    setSuccess(true);
 
     try {
-      const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/reset-password/confirm', {
+      const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/reset-password', {
         method: 'POST',
         credentials: "include", // Include cookies
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, newPassword }),
+        body: JSON.stringify({ email }),
       });
 
       const data = await response.json();
@@ -124,21 +131,42 @@ function PasswordResetConfirm() {
   };
 
   return (
-    <div>
-      <h2>Reset Password</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="password"
-          placeholder="Enter new password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-        />
-        <button type="submit">Reset Password</button>
-      </form>
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+    <div id="body2">
+      <div className="password-reset-container">
+        <div className="form-container">
+          <h2>Password Reset</h2>
+          {!success ? (
+            <>
+              <form onSubmit={handleSubmit}>
+                <div className="input-group">
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                  <label htmlFor="email" id='label'>Enter your email address</label>
+                  {/* {error && <p className="error">{error}</p>} */}
+                </div>
+                <div>
+                  <button type="submit" className="submit-btn">Reset Password</button>
+                  {message && <p style={{ color: 'green' }}>{message}</p>}
+                  {error && <p style={{ color: 'red' }}>{error}</p>}
+                </div>
+              </form>
+            </>
+          ) : (
+            <div className="success-message">
+              <h3>Check your inbox for the reset link!</h3>
+              <p>If the email is registered, you will receive an email shortly.</p>
+            </div>
+
+          )}
+        </div>
+      </div>
     </div>
   );
 }
 
-export default PasswordResetConfirm;
+export default PasswordReset;

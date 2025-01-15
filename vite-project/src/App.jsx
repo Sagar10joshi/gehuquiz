@@ -10,8 +10,8 @@ import AdminPage from './AdminDash';
 import Admin from './Admin.jsx';
 import questions from './Questions.jsx';
 import Quizstart from './Startquiz'
-// import PasswordResetRequest from './Reset'
-import PasswordResetConfirm from './Reset'
+import PasswordReset from './Reset'
+import PasswordResetConfirm from './Resetpass'
 function App() {
     return (
             <Routes>
@@ -22,7 +22,7 @@ function App() {
                 <Route path="/results" element={<FeedbackPage />} />
                 <Route path="/admin" element={<AdminPage/>}/>
                 <Route path="/adminlogin" element={<Admin/>} />
-                <Route path="/reset-password" element={<PasswordResetConfirm/>} />
+                <Route path="/reset-password" element={<PasswordReset/>} />
                 {/* <Route path="/reset-password/:token" element={<PasswordResetConfirm/>} /> */}
                 <Route path="/start" element={<Quizstart questions={questions} />} />
             </Routes>
