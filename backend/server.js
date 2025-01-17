@@ -211,7 +211,7 @@ app.post('/api/reset-password', async (req, res) => {
     await user.save();
 
     // Send the reset email with the reset link
-    const resetUrl = `https://gehuquiz-s5sn.vercel.app/api/reset-password/${resetToken}`;
+    const resetUrl = `https://gehuquiz-s5sn.vercel.app/reset-password/${resetToken}`;
 
     await resetMail(user, resetUrl);
 
@@ -223,10 +223,10 @@ app.post('/api/reset-password', async (req, res) => {
   }
 });
 
-app.get('/api/reset-password/:resetToken', (req, res) => {
-  const { resetToken } = req.params; // Accessing the resetToken from the URL
-  res.json({ message: `Welcome to the reset page with token: ${resetToken}` });
-});
+// app.get('/reset-password/:resetToken', (req, res) => {
+//   const { resetToken } = req.params; // Accessing the resetToken from the URL
+//   res.json({ message: `Welcome to the reset page with token: ${resetToken}` });
+// });
 
 
 
