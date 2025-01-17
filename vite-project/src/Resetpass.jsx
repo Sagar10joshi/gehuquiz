@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 function PassConfirm() {
-  const { token } = useParams();
+  const { resetToken } = useParams();
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -11,7 +11,7 @@ function PassConfirm() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`https://gehuquiz-sagars-projects-0f20619e.vercel.app/reset-password/confirm/${token}`,{
+      const response = await fetch(`https://gehuquiz-sagars-projects-0f20619e.vercel.app/reset-password/confirm/${resetToken}`,{
         method: 'POST',
         credentials: "include", // Include cookies
         headers: { 'Content-Type': 'application/json' },
