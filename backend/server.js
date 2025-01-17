@@ -231,7 +231,7 @@ app.post('/api/reset-password', async (req, res) => {
 
 
 // Password Reset Confirm - Step 2
-app.post('/reset-password/confirm', async (req, res) => {
+app.post('/api/reset-password/confirm', async (req, res) => {
   const { token, newPassword } = req.body;
 
   try {
