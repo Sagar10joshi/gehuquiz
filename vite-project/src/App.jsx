@@ -16,15 +16,15 @@ function App() {
     return (
             <Routes>
                 <Route path="/" element={<QuizHomePage />} />
-                <Route path="/register" element={<RegistrationPage />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/otp" element={<OTPVerification />} />
-                <Route path="/results" element={<FeedbackPage />} />
-                <Route path="/admin" element={<AdminPage/>}/>
-                <Route path="/adminlogin" element={<Admin/>} />
-                <Route path="/reset-password" element={<PasswordReset/>} />
-                <Route path="/reset-password/:token" element={<PassConfirm />} />
-                <Route path="/start" element={<Quizstart questions={questions} />} />
+                <Route path="/api/register" element={<RegistrationPage />} />
+                <Route path="/api/login" element={<LoginPage />} />
+                <Route path="/api/otp" element={<OTPVerification />} />
+                <Route path="/api/results" element={<FeedbackPage />} />
+                <Route path="/api/admin" element={<AdminPage/>}/>
+                <Route path="/api/adminlogin" element={<Admin/>} />
+                <Route path="/api/reset-password" element={<PasswordReset/>} />
+                <Route path="/api/reset-password/:token" element={<PassConfirm />} />
+                <Route path="/api/start" element={<Quizstart questions={questions} />} />
             </Routes>
     );
 }export default App;
