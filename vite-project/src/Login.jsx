@@ -11,7 +11,7 @@ const LoginPage = () => {
     const navigate = useNavigate(); // Correctly defined here
 
     const handleReset = ()=>{
-      navigate('/reset-password');
+      navigate('/api/reset-password');
     }
 
     const handleSubmit = async (event) => {

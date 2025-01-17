@@ -57,7 +57,7 @@ app.post('/api/register', async (req, res) => {
       res.status(200).json({
         message: 'Otp Sent Successfully!!',
         token, // Send the token to the client
-        redirect: '/otp' // Redirect to OTP page
+        redirect: '/api/otp' // Redirect to OTP page
       });
       console.log("Otp Sent Successfully!!");
       //console.log("Session data after registration:", req.session.userData);
@@ -214,7 +214,7 @@ app.post('/api/reset-password', async (req, res) => {
 
     await resetMail(user, resetUrl);
 
-    res.status(200).json({ message: 'Password reset email sent', redirect: '/reset-password/confirm'});
+    res.status(200).json({ message: 'Password reset email sent', redirect: '/api/reset-password/confirm'});
 
   } catch (err) {
     console.error(err);
