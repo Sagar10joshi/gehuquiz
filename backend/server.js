@@ -187,6 +187,7 @@ app.get('/api/users', async (req, res) => {
 app.get('/api/reset-password', async (req, res) => {
   res.json("Welcome to Registration page")
 })
+let resetToken
 
 app.post('/api/reset-password', async (req, res) => {
   const { email } = req.body;
@@ -201,7 +202,7 @@ app.post('/api/reset-password', async (req, res) => {
     }
 
     // Generate a reset token
-    const resetToken = crypto.randomBytes(32).toString('hex');
+    resetToken = crypto.randomBytes(32).toString('hex');
     const resetTokenExpiration = Date.now() + 3600000; // Token is valid for 1 hour
 
     // Store the reset token and its expiration time in the user document
@@ -221,6 +222,12 @@ app.post('/api/reset-password', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+app.get('/reset-password/:resetToken', (req, res) => {
+  const { resetToken } = req.params; // Accessing the resetToken from the URL
+  res.json({ message: `Welcome to the reset page with token: ${resetToken}` });
+});
+
 
 
 // Password Reset Confirm - Step 2
