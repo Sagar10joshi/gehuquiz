@@ -16,7 +16,7 @@ function Quizstart({ questions }) {
     if (!token) {
       // If no token, redirect to login page
       alert("You need to log in first.");
-      navigate('/login'); // Redirect to login
+      navigate('/api/login'); // Redirect to login
     } else {
       setTimer(30); // Reset the timer if logged in
       startTimer(); // Start the quiz timer
@@ -55,7 +55,7 @@ function Quizstart({ questions }) {
   const handleEndTest = async () => {
     try {
       const token = sessionStorage.getItem('token'); // Fetch the token
-      const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/score', {
+      const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/api/score', {
         method: 'POST',
         credentials: "include", // Include cookies
         headers: {

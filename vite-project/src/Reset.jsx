@@ -108,7 +108,7 @@ function PasswordReset() {
     setSuccess(true);
 
     try {
-      const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/reset-password', {
+      const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/api/reset-password', {
         method: 'POST',
         credentials: "include", // Include cookies
         headers: { 'Content-Type': 'application/json' },

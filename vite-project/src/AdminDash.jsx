@@ -16,7 +16,7 @@ const AdminPage = ()=>{
     const fetchUsers = async()=>{
         setLoading(true);
         try {
-            const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/users');
+            const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/api/users');
             const data = await response.json();
             setUsers(data);
             // console.log(data);

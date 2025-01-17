@@ -20,23 +20,23 @@ function QuizHomePage() {
     const token = sessionStorage.getItem('token');
     if (!token) {
       alert("Please log in to start the quiz.");
-      navigate('/login');
+      navigate('/api/login');
       return;
     }
     setStartQuiz(true);
-    navigate('/start');
+    navigate('/api/start');
   };
 
   const handleLogin = () => {
-    navigate('/login');
+    navigate('/api/login');
   };
 
   const handleRegister = () => {
-    navigate('/register');
+    navigate('/api/register');
   };
 
   const handleAdmin = () => {
-    navigate('/adminlogin');
+    navigate('/api/adminlogin');
   };
 
   return (

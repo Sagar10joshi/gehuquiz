@@ -39,13 +39,13 @@ app.get('/', (req, res) => {
   res.json("Welcome to Server")
 })
 
-app.get('/register', (req, res) => {
+app.get('/api/register', (req, res) => {
   res.json("Welcome to Registration page")
 })
 
 //Route for Registration and to send otp       
 
-app.post('/register', async (req, res) => {
+app.post('/api/register', async (req, res) => {
   const { username, email, password } = req.body;
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const otpTimestamp = Date.now();
@@ -73,7 +73,7 @@ app.post('/register', async (req, res) => {
 
 //Route for verifying otp and saving user in database
 
-app.post('/otp', async (req, res) => {
+app.post('/api/otp', async (req, res) => {
 
   const token = req.headers['authorization']?.split(' ')[1]; // Assuming 'Bearer <token>'
   if (!token) return res.status(401).send('Access denied. No token provided.');
@@ -96,7 +96,7 @@ app.post('/otp', async (req, res) => {
       const Registered = await registerUser.save();
       return res.status(200).json({
         message: 'Registration successful!',
-        redirect: '/login' // Redirect to quiz page
+        redirect: '/api/login' // Redirect to quiz page
       });
     } else {
       return res.status(400).json({ message: "Invalid OTP" });
@@ -108,7 +108,7 @@ app.post('/otp', async (req, res) => {
 
 //Route for login
 
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   try {
     const Username = req.body.username
     const Password = req.body.password
@@ -138,7 +138,7 @@ app.post('/login', async (req, res) => {
 
 //Route for sending final score in user mail
 
-app.post('/score', async (req, res) => {
+app.post('/api/score', async (req, res) => {
 
   const token = req.headers['authorization']?.split(' ')[1]; // Assuming 'Bearer <token>'
   if (!token) return res.status(401).send('Access denied. No token provided.');
@@ -175,7 +175,7 @@ app.post('/score', async (req, res) => {
   }
 });
 
-app.get('/users', async (req, res) => {
+app.get('/api/users', async (req, res) => {
   try {
     const users = await Register.find(); // Fetch all users from the database
     res.json(users); // Respond with the list of users
@@ -184,11 +184,11 @@ app.get('/users', async (req, res) => {
   }
 });
 
-app.get('/reset-password', async (req, res) => {
+app.get('/api/reset-password', async (req, res) => {
   res.json("Welcome to Registration page")
 })
 
-app.post('/reset-password', async (req, res) => {
+app.post('/api/reset-password', async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -210,11 +210,11 @@ app.post('/reset-password', async (req, res) => {
     await user.save();
 
     // Send the reset email with the reset link
-    const resetUrl = `https://gehuquiz-s5sn.vercel.app/confirm/${resetToken}`;
+    const resetUrl = `https://gehuquiz-s5sn.vercel.app/reset-password/${resetToken}`;
 
     await resetMail(user, resetUrl);
 
-    res.status(200).json({ message: 'Password reset email sent' });
+    res.status(200).json({ message: 'Password reset email sent', redirect: '/reset-password/confirm'});
 
   } catch (err) {
     console.error(err);
@@ -224,7 +224,7 @@ app.post('/reset-password', async (req, res) => {
 
 
 // Password Reset Confirm - Step 2
-app.post('/reset-password/:resetToken', async (req, res) => {
+app.post('/api/reset-password/confirm', async (req, res) => {
   const { token } = req.params;  // Extract token from URL
   const { newPassword } = req.body;
 

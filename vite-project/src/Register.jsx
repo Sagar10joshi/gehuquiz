@@ -29,7 +29,7 @@ function RegistrationPage() {
         }
         //const token = sessionStorage.getItem('token'); // Retrieve the token from storage
         try {
-            const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/register', {
+            const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/api/register', {
                 method: 'POST',
                 credentials: "include", // Include cookies
                 headers: {
