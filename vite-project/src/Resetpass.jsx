@@ -35,7 +35,8 @@ function PassConfirm() {
   };
 
   return (
-    <div>
+    <div id="reset">
+      <div>
       <h2>Reset Password</h2>
       <form onSubmit={handleSubmit}>
         <input
@@ -48,6 +49,7 @@ function PassConfirm() {
       </form>
       {message && <p style={{ color: 'green' }}>{message}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
+    </div>
     </div>
   );
 }
