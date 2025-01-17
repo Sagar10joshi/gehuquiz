@@ -214,7 +214,7 @@ app.post('/api/reset-password', async (req, res) => {
 
     await resetMail(user, resetUrl);
 
-    res.status(200).json({ message: 'Password reset email sent', redirect: '/api/reset-password/confirm'});
+    res.status(200).json({ message: 'Password reset email sent', redirect: '/reset-password/confirm'});
 
   } catch (err) {
     console.error(err);
