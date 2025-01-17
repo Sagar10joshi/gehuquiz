@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 function PassConfirm() {
-  const { resetToken } = useParams();
+  const { token } = useParams();
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -15,7 +15,7 @@ function PassConfirm() {
         method: 'POST',
         credentials: "include", // Include cookies
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({resetToken,newPassword }),
+        body: JSON.stringify({token,newPassword}),
       });
 
       const data = await response.json();

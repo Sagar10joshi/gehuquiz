@@ -214,7 +214,7 @@ app.post('/api/reset-password', async (req, res) => {
 
     await resetMail(user, resetUrl);
 
-    res.status(200).json({ message: 'Password reset email sent', redirect: '/reset-password/confirm'});
+    res.status(200).json({ message: 'Password reset email sent'});
 
   } catch (err) {
     console.error(err);
@@ -225,12 +225,12 @@ app.post('/api/reset-password', async (req, res) => {
 
 // Password Reset Confirm - Step 2
 app.post('/api/reset-password/confirm', async (req, res) => {
-  const { resetToken, newPassword } = req.body;
+  const { token, newPassword } = req.body;
 
   try {
     // Find user by reset token and check if token is still valid
     const user = await Register.findOne({
-      resetToken: resetToken,
+      resetToken: token,
       resetTokenExpiration: { $gt: Date.now() }, // Check if token is expired
     });
 
