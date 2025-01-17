@@ -11,7 +11,7 @@ function PassConfirm() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`https://gehuquiz-sagars-projects-0f20619e.vercel.app/reset-password/confirm/${resetToken}`,{
+      const response = await fetch(`https://gehuquiz-sagars-projects-0f20619e.vercel.app/confirm/${resetToken}`,{
         method: 'POST',
         credentials: "include", // Include cookies
         headers: { 'Content-Type': 'application/json' },
