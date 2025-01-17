@@ -19,7 +19,7 @@ const app = express();
 
 // CORS middleware configuration
 const corsOptions = {
-  origin: 'https://gehuquiz-s5sn.vercel.app',  // Allow only your frontend domain
+  origin: 'https://gehuquiz-2oyc.vercel.app',  // Allow only your frontend domain
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true  // Allow cookies or credentials if needed
@@ -211,7 +211,7 @@ app.post('/api/reset-password', async (req, res) => {
     await user.save();
 
     // Send the reset email with the reset link
-    const resetUrl = `https://gehuquiz-s5sn.vercel.app/reset-password/${resetToken}`;
+    const resetUrl = `https://gehuquiz-2oyc.vercel.app/reset-password/${resetToken}`;
 
     await resetMail(user, resetUrl);
 
