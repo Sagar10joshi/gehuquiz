@@ -4,31 +4,13 @@
     {
       "src": "server.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "client/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "client/build"
-      }
     }
   ],
   "routes": [
     {
-      "src": "/reset-password/confirm",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/_next/(.*)", 
-      "dest": "/_next/$1"
-    },
-    {
-      "src": "/static/(.*)",  
-      "dest": "/static/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/client/build/index.html"
+      "dest": "server.js",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
     }
   ]
 }
