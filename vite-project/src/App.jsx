@@ -23,7 +23,7 @@ function App() {
                 <Route path="/api/admin" element={<AdminPage/>}/>
                 <Route path="/api/adminlogin" element={<Admin/>} />
                 <Route path="/api/reset-password" element={<PasswordReset/>} />
-                <Route path="/api/reset-password/:token" element={<PassConfirm />} />
+                <Route path="/api/reset-password/:resetToken" element={<PassConfirm />} />
                 <Route path="/api/start" element={<Quizstart questions={questions} />} />
             </Routes>
     );

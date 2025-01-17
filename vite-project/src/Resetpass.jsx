@@ -15,7 +15,7 @@ function PassConfirm() {
         method: 'POST',
         credentials: "include", // Include cookies
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({newPassword }),
+        body: JSON.stringify({resetToken,newPassword }),
       });
 
       const data = await response.json();
