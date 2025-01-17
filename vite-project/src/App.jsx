@@ -11,7 +11,7 @@ import Admin from './Admin.jsx';
 import questions from './Questions.jsx';
 import Quizstart from './Startquiz'
 import PasswordReset from './Reset'
-import PassConfirm from './Resetpass.jsx'
+import PassConfirm from './Resetpass'
 function App() {
     return (
             <Routes>
@@ -23,7 +23,7 @@ function App() {
                 <Route path="/admin" element={<AdminPage/>}/>
                 <Route path="/adminlogin" element={<Admin/>} />
                 <Route path="/reset-password" element={<PasswordReset/>} />
-                <Route path="/reset-password/:token" element={<PassConfirm/>} />
+                <Route path="/reset-password/confirm/:token" element={<PassConfirm/>} />
                 <Route path="/start" element={<Quizstart questions={questions} />} />
             </Routes>
     );
