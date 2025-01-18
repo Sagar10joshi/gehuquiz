@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "vite-project/dist/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "backend/server.js"
+    },
+    {
+      "source": "/reset-password/(.*)",
+      "destination": "vite-project/dist/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "vite-project/dist/index.html"
+    }
+  ]
+}
