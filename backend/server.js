@@ -3,8 +3,6 @@ import dotenv from "dotenv"
 import cors from "cors"
 import bcrypt from "bcryptjs"
 import crypto from "crypto"
-import { join, dirname } from 'path';
-import { fileURLToPath } from 'url';
 import jwt from "jsonwebtoken"
 import { sendOtp } from "./api/mail.js";
 import { sendresult } from "./api/resultmail.js"
@@ -231,7 +229,7 @@ app.post('/reset-password', async (req, res) => {
 
 app.get('/reset-password/12345', (req, res) => {
   res.status(200).json({ message: 'Password reset email sent'});
-});
+});   
 
 
 
