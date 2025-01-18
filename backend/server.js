@@ -223,7 +223,7 @@ app.post('/reset-password', async (req, res) => {
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: 'Server error' });     
   }
 });
 
