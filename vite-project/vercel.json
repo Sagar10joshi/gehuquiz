@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "src": "/reset-password/(.*)", 
-      "dest": "https://gehuquiz-sagars-projects-0f20619e.vercel.app/reset-password/$1"
-    },
-    {
       "src": "/(.*)", 
       "dest": "/index.html"
     }
