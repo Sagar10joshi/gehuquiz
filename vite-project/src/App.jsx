@@ -28,22 +28,3 @@ function App() {
             </Routes>
     );
 }export default App;
-
-
-// {
-//     "version": 2,
-//     "builds": [
-//       {
-//         "src": "server.js",
-//         "use": "@vercel/node"
-//       }
-//     ],
-//     "routes": [
-//       {
-//         "src": "/(.*)",
-//         "dest": "server.js",
-//         "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
-//       }
-//     ]
-//   }
-  

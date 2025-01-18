@@ -11,11 +11,11 @@ function PassConfirm() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`https://gehuquiz-sagars-projects-0f20619e.vercel.app/reset-password/`,{
+      const response = await fetch(`https://gehuquiz-sagars-projects-0f20619e.vercel.app/reset-password/`, {
         method: 'POST',
         credentials: "include", // Include cookies
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({token,newPassword}),
+        body: JSON.stringify({ token, newPassword }),
       });
 
       const data = await response.json();
@@ -37,19 +37,19 @@ function PassConfirm() {
   return (
     <div id="reset">
       <div>
-      <h2>Reset Password</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="password"
-          placeholder="Enter new password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-        />
-        <button type="submit">Reset Password</button>
-      </form>
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-    </div>
+        <h2>Reset Password</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="password"
+            placeholder="Enter new password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+          <button type="submit">Reset Password</button>
+        </form>
+        {message && <p style={{ color: 'green' }}>{message}</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </div>
     </div>
   );
 }

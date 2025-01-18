@@ -219,7 +219,7 @@ app.post('/reset-password', async (req, res) => {
 
     await resetMail(user, resetUrl);
 
-    res.status(200).json({ message: 'Password reset email sent'});
+    res.status(200).json({ message: 'Password reset email sent' });
 
   } catch (err) {
     console.error(err);
@@ -228,8 +228,8 @@ app.post('/reset-password', async (req, res) => {
 });
 
 app.get('/reset-password/12345', (req, res) => {
-  res.status(200).json({ message: 'Password reset email sent'});
-});   
+  res.status(200).json({ message: 'Password reset email sent' });
+});
 
 
 
