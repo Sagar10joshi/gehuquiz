@@ -18,7 +18,7 @@ async function resetMail(user, resetUrl) {
         to: `${user.email}`,
         subject: 'Password Reset Request',
         html: `<p>You requested a password reset. Click the link below to reset your password:</p>
-<a href="${resetUrl}">Reset Password</a>`,
+<a href="${resetUrl} ,redirect: '/reset-password/12345'">Reset Password</a>`,
     };
 
     try {

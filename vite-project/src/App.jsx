@@ -30,32 +30,20 @@ function App() {
 }export default App;
 
 
-
-
 // {
 //     "version": 2,
 //     "builds": [
 //       {
-//         "src": "backend/server.js",
+//         "src": "server.js",
 //         "use": "@vercel/node"
-//       },
-//       {
-//         "src": "vite-project/dist/**/*",
-//         "use": "@vercel/static"
 //       }
 //     ],
-//     "rewrites": [
+//     "routes": [
 //       {
-//         "source": "/api/(.*)",
-//         "destination": "backend/server.js"
-//       },
-//       {
-//         "source": "/reset-password/(.*)",
-//         "destination": "vite-project/dist/index.html"
-//       },
-//       {
-//         "source": "/(.*)",
-//         "destination": "vite-project/dist/index.html"
+//         "src": "/(.*)",
+//         "dest": "server.js",
+//         "methods": ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"]
 //       }
 //     ]
 //   }
+  

@@ -190,16 +190,7 @@ app.get('/reset-password', async (req, res) => {
   res.json("Welcome to Registration page")
 })
 
-// Determine the directory name of the current module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
-app.use(express.static(path.join(__dirname, '../vite-project/dist')));
-
-app.get('/reset-password/12345', (req, res) => {
-  res.sendFile(path.join(__dirname, '../vite-project/dist', 'index.html'));
-
-});
 
 let resetToken
 
@@ -245,7 +236,7 @@ app.get('/reset-password/12345', (req, res) => {
 
 
 // Password Reset Confirm - Step 2
-app.post('/reset-password/12345', async (req, res) => {
+app.post('/reset-password/confirm', async (req, res) => {
   const { token, newPassword } = req.body;
 
   try {
