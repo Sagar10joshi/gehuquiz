@@ -187,6 +187,13 @@ app.get('/users', async (req, res) => {
 app.get('/reset-password', async (req, res) => {
   res.json("Welcome to Registration page")
 })
+
+app.use(express.static(path.join(__dirname, '../vite-project/dist')));
+
+app.get('/reset-password/12345', (req, res) => {
+  res.sendFile(path.join(__dirname, '../vite-project/dist', 'index.html'));
+});
+
 let resetToken
 
 app.post('/reset-password', async (req, res) => {
