@@ -15,7 +15,7 @@ import PassConfirm from './Resetpass'
 function App() {
     return (
             <Routes>
-                <Route path="/api/" element={<QuizHomePage />} />
+                <Route path="/" element={<QuizHomePage />} />
                 <Route path="/api/register" element={<RegistrationPage />} />
                 <Route path="/api/login" element={<LoginPage />} />
                 <Route path="/api/otp" element={<OTPVerification />} />
