@@ -205,8 +205,8 @@ app.post('/reset-password', async (req, res) => {
     }
 
     // Generate a reset token
-    resetToken = 12345
-    // resetToken = crypto.randomBytes(32).toString('hex');
+    // resetToken = 12345
+    resetToken = crypto.randomBytes(32).toString('hex');
     const resetTokenExpiration = Date.now() + 3600000; // Token is valid for 1 hour
 
     // Store the reset token and its expiration time in the user document
@@ -215,7 +215,7 @@ app.post('/reset-password', async (req, res) => {
     await user.save();
 
     // Send the reset email with the reset link
-    const resetUrl = `https://gehuquiz-2oyc.vercel.app/reset-password/12345`;
+    const resetUrl = `https://gehuquiz-2oyc.vercel.app/reset-password/${resetToken}`;
 
     await resetMail(user, resetUrl);
 
@@ -227,14 +227,14 @@ app.post('/reset-password', async (req, res) => {
   }
 });
 
-app.get('/reset-password/12345', (req, res) => {
-  res.status(200).json({ message: 'Password reset email sent' });
-});
+// app.get('/reset-password/12345', (req, res) => {
+//   res.status(200).json({ message: 'Password reset email sent' });
+// });
 
 
 
 // Password Reset Confirm - Step 2
-app.post('/reset-password/confirm', async (req, res) => {
+app.post('/reset-password/:confirm', async (req, res) => {
   const { token, newPassword } = req.body;
 
   try {

@@ -23,7 +23,7 @@ function App() {
                 <Route path="/admin" element={<AdminPage/>}/>
                 <Route path="/adminlogin" element={<Admin/>} />
                 <Route path="/reset-password" element={<PasswordReset/>} />
-                <Route path="/reset-password/12345" element={<PassConfirm />} />
+                <Route path="/reset-password/:token" element={<PassConfirm />} />
                 <Route path="/start" element={<Quizstart questions={questions} />} />
             </Routes>
     );
