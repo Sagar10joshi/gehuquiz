@@ -3,6 +3,8 @@ import dotenv from "dotenv"
 import cors from "cors"
 import bcrypt from "bcryptjs"
 import crypto from "crypto"
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
 import jwt from "jsonwebtoken"
 import { sendOtp } from "./api/mail.js";
 import { sendresult } from "./api/resultmail.js"
@@ -188,10 +190,15 @@ app.get('/reset-password', async (req, res) => {
   res.json("Welcome to Registration page")
 })
 
+// Determine the directory name of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 app.use(express.static(path.join(__dirname, '../vite-project/dist')));
 
 app.get('/reset-password/12345', (req, res) => {
   res.sendFile(path.join(__dirname, '../vite-project/dist', 'index.html'));
+
 });
 
 let resetToken
