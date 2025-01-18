@@ -8,4 +8,5 @@ export default defineConfig({
             'tsparticles': 'tsparticles',
         },
     },
+    base: '/', // Use '/' if deploying at the root of your domain or './' if deploying in a subdirectory
 });
