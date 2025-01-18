@@ -35,7 +35,7 @@ app.use(express.urlencoded({ extended: false }))
 
 
 
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
   res.json("Welcome to Server")
 })
 
