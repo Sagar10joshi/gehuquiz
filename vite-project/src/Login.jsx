@@ -11,7 +11,7 @@ const LoginPage = () => {
     const navigate = useNavigate(); // Correctly defined here
 
     const handleReset = ()=>{
-      navigate('/api/reset-password');
+      navigate('/reset-password');
     }
 
     const handleSubmit = async (event) => {
@@ -26,7 +26,7 @@ const LoginPage = () => {
         }
 
         try {
-            const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/api/login', {
+            const response = await fetch('https://gehuquiz-sagars-projects-0f20619e.vercel.app/login', {
                 method: 'POST',
                 credentials: "include", // Include cookies
                 headers: {

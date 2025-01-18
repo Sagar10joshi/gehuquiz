@@ -35,17 +35,17 @@ app.use(express.urlencoded({ extended: false }))
 
 
 
-app.get('/api/', (req, res) => {
+app.get('/', (req, res) => {
   res.json("Welcome to Server")
 })
 
-app.get('/api/register', (req, res) => {
+app.get('/register', (req, res) => {
   res.json("Welcome to Registration page")
 })
 
 //Route for Registration and to send otp       
 
-app.post('/api/register', async (req, res) => {
+app.post('/register', async (req, res) => {
   const { username, email, password } = req.body;
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   const otpTimestamp = Date.now();
@@ -57,7 +57,7 @@ app.post('/api/register', async (req, res) => {
       res.status(200).json({
         message: 'Otp Sent Successfully!!',
         token, // Send the token to the client
-        redirect: '/api/otp' // Redirect to OTP page
+        redirect: '/otp' // Redirect to OTP page
       });
       console.log("Otp Sent Successfully!!");
       //console.log("Session data after registration:", req.session.userData);
@@ -73,7 +73,7 @@ app.post('/api/register', async (req, res) => {
 
 //Route for verifying otp and saving user in database
 
-app.post('/api/otp', async (req, res) => {
+app.post('/otp', async (req, res) => {
 
   const token = req.headers['authorization']?.split(' ')[1]; // Assuming 'Bearer <token>'
   if (!token) return res.status(401).send('Access denied. No token provided.');
@@ -96,7 +96,7 @@ app.post('/api/otp', async (req, res) => {
       const Registered = await registerUser.save();
       return res.status(200).json({
         message: 'Registration successful!',
-        redirect: '/api/login' // Redirect to quiz page
+        redirect: '/login' // Redirect to quiz page
       });
     } else {
       return res.status(400).json({ message: "Invalid OTP" });
@@ -108,7 +108,7 @@ app.post('/api/otp', async (req, res) => {
 
 //Route for login
 
-app.post('/api/login', async (req, res) => {
+app.post('/login', async (req, res) => {
   try {
     const Username = req.body.username
     const Password = req.body.password
@@ -138,7 +138,7 @@ app.post('/api/login', async (req, res) => {
 
 //Route for sending final score in user mail
 
-app.post('/api/score', async (req, res) => {
+app.post('/score', async (req, res) => {
 
   const token = req.headers['authorization']?.split(' ')[1]; // Assuming 'Bearer <token>'
   if (!token) return res.status(401).send('Access denied. No token provided.');
@@ -175,7 +175,7 @@ app.post('/api/score', async (req, res) => {
   }
 });
 
-app.get('/api/users', async (req, res) => {
+app.get('/users', async (req, res) => {
   try {
     const users = await Register.find(); // Fetch all users from the database
     res.json(users); // Respond with the list of users
@@ -184,12 +184,12 @@ app.get('/api/users', async (req, res) => {
   }
 });
 
-app.get('/api/reset-password', async (req, res) => {
+app.get('/reset-password', async (req, res) => {
   res.json("Welcome to Registration page")
 })
 let resetToken
 
-app.post('/api/reset-password', async (req, res) => {
+app.post('/reset-password', async (req, res) => {
   const { email } = req.body;
 
   try {
@@ -231,7 +231,7 @@ app.post('/api/reset-password', async (req, res) => {
 
 
 // Password Reset Confirm - Step 2
-app.post('/api/reset-password/confirm', async (req, res) => {
+app.post('/reset-password/confirm', async (req, res) => {
   const { token, newPassword } = req.body;
 
   try {
