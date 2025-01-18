@@ -234,8 +234,9 @@ app.post('/reset-password', async (req, res) => {
 
 
 // Password Reset Confirm - Step 2
-app.post('/reset-password/:confirm', async (req, res) => {
-  const { token, newPassword } = req.body;
+app.post('/reset-password/:token', async (req, res) => {
+  const { token } = req.params; // Get token from URL path
+  const { newPassword } = req.body; // Get newPassword from request body
 
   try {
     // Find user by reset token and check if token is still valid
