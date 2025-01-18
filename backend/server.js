@@ -224,14 +224,14 @@ app.post('/reset-password', async (req, res) => {
   }
 });
 
-app.post('/reset-password/12345', (req, res) => {
+app.get('/reset-password/12345', (req, res) => {
   res.status(200).json({ message: 'Password reset email sent'});
 });
 
 
 
 // Password Reset Confirm - Step 2
-app.post('/reset-password/confirm', async (req, res) => {
+app.post('/reset-password/12345', async (req, res) => {
   const { token, newPassword } = req.body;
 
   try {
