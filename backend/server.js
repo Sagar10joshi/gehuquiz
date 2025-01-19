@@ -206,17 +206,17 @@ app.post('/reset-password', async (req, res) => {
 
     // Generate a reset token
     // resetToken = 12345
-    // resetToken = crypto.randomBytes(32).toString('hex');
-    // const resetTokenExpiration = Date.now() + 3600000; // Token is valid for 1 hour
+    resetToken = crypto.randomBytes(32).toString('hex');
+    const resetTokenExpiration = Date.now() + 3600000; // Token is valid for 1 hour
 
     // Store the reset token and its expiration time in the user document
-    // user.resetToken = 12345;
-    // user.resetTokenExpiration = resetTokenExpiration;
-    // await user.save();
+    user.resetToken = resetToken;
+    user.resetTokenExpiration = resetTokenExpiration;
+    await user.save();
 
     // Send the reset email with the reset link
-    // const resetUrl = `https://gehuquiz-2oyc.vercel.app/reset-password/${resetToken}`;
-    const resetUrl = `https://gehuquiz-2oyc.vercel.app/reset-password/confirm`;
+    const resetUrl = `https://gehuquiz-2oyc.vercel.app/reset-password/${resetToken}`;
+    // const resetUrl = `https://gehuquiz-2oyc.vercel.app/reset-password/confirm`;
 
 
     await resetMail(user, resetUrl);
@@ -236,20 +236,20 @@ app.post('/reset-password', async (req, res) => {
 
 
 // Password Reset Confirm - Step 2
-app.post('/reset-password/confirm', async (req, res) => {
-  // const { token } = req.params; // Get token from URL path
+app.post('/reset-password/:resetToken', async (req, res) => {
+  const { resetToken } = req.params; // Get token from URL path
   const { newPassword } = req.body; // Get newPassword from request body
 
   try {
     // Find user by reset token and check if token is still valid
     const user = await Register.findOne({
-    //   resetToken: token,
-    //   resetTokenExpiration: { $gt: Date.now() }, // Check if token is expired
+      resetToken: resetToken,
+      resetTokenExpiration: { $gt: Date.now() }, // Check if token is expired
     });
 
-    // if (!user) {
-    //   return res.status(400).json({ message: 'Invalid or expired token' });
-    // }
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid or expired token' });
+    }
 
     // Hash the new password before saving
     //   const hashedPassword = await bcrypt.hash(newPassword, 12);
@@ -257,8 +257,8 @@ app.post('/reset-password/confirm', async (req, res) => {
 
     // Save the new password and clear the reset token fields
     user.password = hashedPassword;
-    // user.resetToken = undefined;
-    // user.resetTokenExpiration = undefined;
+    user.resetToken = undefined;
+    user.resetTokenExpiration = undefined;
     await user.save();
 
     res.status(200).json({ message: 'Password reset successful' });
