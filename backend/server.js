@@ -9,6 +9,7 @@ import { sendresult } from "./api/resultmail.js"
 import { resetMail } from "./api/resetMail.js"
 import dbConnect from "./api/dbConnect.js";
 import { Register } from "./api/register_model.js"
+import {Admin} from "./api/admin__reg_model.js"
 dotenv.config({
   path: "./.env"
 })
@@ -143,7 +144,7 @@ app.post('/adminlogin', async (req, res) => {
     const Username = req.body.loginUsername
     const Password = req.body.loginPassword
 
-    const userlogin = await Register.findOne({ username: Username })
+    const userlogin = await Admin.findOne({ username: Username })
 
     if (!userlogin) {
       return res.status(401).json({ message: 'Invalid credentials' });
