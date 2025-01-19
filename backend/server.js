@@ -167,6 +167,44 @@ app.post('/adminlogin', async (req, res) => {
 })
 
 
+//API for admin registration
+
+app.post('/adminRegister', async (req, res) => {
+  const { loginUsername, email, loginPassword } = req.body;
+  // const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  // const otpTimestamp = Date.now();
+  // const token = jwt.sign({ username, email, password, otp, otpTimestamp }, '321', { expiresIn: '5m' });
+  const token = jwt.sign({ loginUsername, email, loginPassword}, '321', { expiresIn: '5m' });
+
+  if (email) {
+    try {
+
+      const registerAdmin = new Admin({
+        username : loginUsername,
+        email: email,
+        password: loginPassword
+    })            
+
+    const registered = await registerAdmin.save();
+      // await sendOtp(email, otp)     
+      res.status(200).json({
+        message: 'Otp Sent Successfully!!',
+        token, // Send the token to the client
+        redirect: '/admin' // Redirect to OTP page
+      });
+      // console.log("Otp Sent Successfully!!");
+      //console.log("Session data after registration:", req.session.userData);
+
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      res.status(500).send('Error sending OTP');
+    }
+  } else {
+    res.status(400).send('Email is required');
+  }
+});
+
+
 //Route for sending final score in user mail
 
 app.post('/score', async (req, res) => {
