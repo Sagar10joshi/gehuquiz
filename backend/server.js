@@ -53,7 +53,7 @@ app.post('/register', async (req, res) => {
 
   if (email) {
     try {
-      await sendOtp(email, otp)
+      await sendOtp(email, otp)     
       res.status(200).json({
         message: 'Otp Sent Successfully!!',
         token, // Send the token to the client
@@ -123,6 +123,36 @@ app.post('/login', async (req, res) => {
       // Generate a JWT token
       const token = jwt.sign({ username: userlogin.username, password: userlogin.password }, '321', { expiresIn: '1h' });
       return res.status(200).json({ message: 'Login successful', token, redirect: '/' });
+
+    }
+    else {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+  } catch (error) {
+    console.error('Login error:', error);
+    res.status(500).send('User cannot be logged in, invalid credentials');
+  }
+})
+
+
+//API for Admin Login
+
+app.post('/adminlogin', async (req, res) => {
+  try {
+    const Username = req.body.loginUsername
+    const Password = req.body.loginPassword
+
+    const userlogin = await Register.findOne({ username: Username })
+
+    if (!userlogin) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    if (userlogin.password === Password && userlogin.username === Username) {
+      // Generate a JWT token
+      const token = jwt.sign({ username: userlogin.username, password: userlogin.password }, '321', { expiresIn: '1h' });
+      return res.status(200).json({ message: 'Login successful', token, redirect: '/admin' });
 
     }
     else {
