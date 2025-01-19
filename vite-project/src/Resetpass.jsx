@@ -35,7 +35,7 @@ function PassConfirm() {
   };
 
   return (
-    <div id="reset">
+    <div id="root">
       <div>
         <h2>Reset Password</h2>
         <form onSubmit={handleSubmit}>

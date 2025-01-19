@@ -227,7 +227,7 @@ app.post('/reset-password', async (req, res) => {
   }
 });
 
-// app.get('/reset-password/12345', (req, res) => {
+// app.get(`/reset-password/${resetToken}`, (req, res) => {
 //   res.status(200).json({ message: 'Password reset email sent' });
 // });
 
