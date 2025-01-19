@@ -170,19 +170,19 @@ app.post('/adminlogin', async (req, res) => {
 //API for admin registration
 
 app.post('/adminRegister', async (req, res) => {
-  const { loginUsername, email, loginPassword } = req.body;
+  const { registerUsername, email, registerPassword } = req.body;
   // const otp = Math.floor(100000 + Math.random() * 900000).toString();
   // const otpTimestamp = Date.now();
   // const token = jwt.sign({ username, email, password, otp, otpTimestamp }, '321', { expiresIn: '5m' });
-  const token = jwt.sign({ loginUsername, email, loginPassword}, '321', { expiresIn: '5m' });
+  const token = jwt.sign({ registerUsername, email, registerPassword}, '321', { expiresIn: '5m' });
 
   if (email) {
     try {
 
       const registerAdmin = new Admin({
-        username : loginUsername,
+        username : registerUsername,
         email: email,
-        password: loginPassword
+        password: registerPassword
     })            
 
     const registered = await registerAdmin.save();

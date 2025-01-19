@@ -59,15 +59,15 @@ function Admin() {
     setSuccessMessage(''); // Clear any previous success messages
 
 
-    if (!registerUsername.trim() || !registerPassword.trim() || !confirmPassword.trim()) {
+    if (!registerUsername.trim() || !registerPassword.trim() || !email){
       setErrorMessage("Please fill in all fields.");
       return;
     }
 
-    if (registerPassword !== confirmPassword) {
-      setErrorMessage("Password and Conform Password should match.");
-      return;
-    }
+    // if (registerPassword !== confirmPassword) {
+    //   setErrorMessage("Password and Conform Password should match.");
+    //   return;
+    // }
 
     alert("Registration successful!");
 
